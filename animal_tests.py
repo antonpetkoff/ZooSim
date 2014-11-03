@@ -19,6 +19,10 @@ class TestAnimals(unittest.TestCase):
         self.animal.set_life_expectancy(20)
         self.assertEqual(self.animal.life_expectancy, 20)
 
+    def test_set_food_type(self):
+        self.animal.set_food_type("meat")
+        self.assertEqual(self.animal.food_type, "meat")
+
     def test_get_current_animal_year(self):
         self.assertEqual(self.animal.get_current_animal_year(), 3)
 
@@ -41,6 +45,13 @@ class TestAnimals(unittest.TestCase):
         self.assertEqual(self.animal.weight,
                          60 + self.animal.GROWTH_RATE_WEIGHT)
 
+    def test_is_alive(self):
+        self.animal.set_life_expectancy(5)
+        print(self.animal.get_chance_of_dying())
+        dead_or_alive = set()
+        for i in range(100):
+            dead_or_alive.add(self.animal.is_alive())
+        self.assertEqual(len(dead_or_alive), 2)
 
 if __name__ == '__main__':
     unittest.main()
