@@ -42,8 +42,18 @@ class TestZoo(unittest.TestCase):
         zoo.accommodate_animal(the_cat)
         self.assertEqual(2 * zoo.ANIMAL_INCOME, zoo.get_income())
 
+    def test_get_outcome(self):
+        zoo = Zoo(10, 100)
+        the_tiger = Animal("Tiger", 15, "Dingo", "male", 90)
+        the_tiger.set_food_type("meat")
+        the_cat = Animal("Cat", 15, "Dingo", "male", 90)
+        the_cat.set_food_type("grass")
+        zoo.accommodate_animal(the_tiger)
+        zoo.accommodate_animal(the_cat)
+        self.assertEqual(zoo.MEAT_PRICE + zoo.GRASS_PRICE, zoo.get_outcome())
+
+
 
 #TODO Test adding animals
-
 if __name__ == '__main__':
     unittest.main()
