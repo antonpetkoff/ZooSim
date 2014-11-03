@@ -34,6 +34,14 @@ class TestZoo(unittest.TestCase):
         self.assertIn(the_tiger, zoo.animals)
         self.assertIn(the_cat, zoo.animals)
 
+    def test_accommodate_to_full_zoo(self):
+        zoo = Zoo(1, 100)
+        the_tiger = Animal("Tiger", 15, "Dingo", "male", 90)
+        the_cat = Animal("Cat", 15, "Dingo", "male", 90)
+        zoo.accommodate_animal(the_tiger)
+        zoo.accommodate_animal(the_cat)
+        self.assertNotIn(the_cat, zoo.animals)
+
     def test_get_income(self):
         zoo = Zoo(10, 100)
         the_tiger = Animal("Tiger", 15, "Dingo", "male", 90)
