@@ -47,7 +47,6 @@ class TestAnimals(unittest.TestCase):
 
     def test_is_alive(self):
         self.animal.set_life_expectancy(5)
-        print(self.animal.get_chance_of_dying())
         dead_or_alive = set()
         for i in range(100):
             dead_or_alive.add(self.animal.is_alive())

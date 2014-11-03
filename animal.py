@@ -2,8 +2,7 @@ from random import random
 
 
 class Animal:
-    DAYS_IN_MONTH = 30.0
-    MONTHS_IN_YEAR = 12.0
+    DAYS_IN_YEAR = 365
     GROWTH_RATE_AGE = 30.0      # grows with 30 days per grow() call
     GROWTH_RATE_WEIGHT = 1.0    # grows with 1 kilo per grow() call
 
@@ -28,7 +27,7 @@ class Animal:
         self.food_type = food_type
 
     def get_current_animal_year(self):
-        return int(self.age / self.DAYS_IN_MONTH / self.MONTHS_IN_YEAR) + 1
+        return int(self.age / self.DAYS_IN_YEAR) + 1
 
     def get_chance_of_dying(self):
         if self.life_expectancy is not None:
