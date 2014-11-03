@@ -1,10 +1,8 @@
 
 class Zoo:
     ANIMAL_INCOME = 60
-    MEAT = 4
-    GRASS = 2
-    FOLIAGE = 2
-    BAMBOO = 2
+    MEAT_PRICE = 4
+    GRASS_PRICE = 2
 
     def __init__(self, capacity, budget):
         self.capacity = capacity
@@ -27,12 +25,18 @@ class Zoo:
         return len(self.animals) < self.capacity
 
     def get_income(self):
-        outcome = len(self.animals) * self.ANIMAL_INCOME
-        return outcome
+        income = len(self.animals) * self.ANIMAL_INCOME
+        return income
 
-    #TO ADD 
+    #TO ADD
     def get_outcome(self):
-        pass
+        outcome = 0
+        for animal in self.animals:
+            if animal.food_type == "meat":
+                outcome += self.MEAT_PRICE
+            else:
+                outcome += self.GRASS_PRICE
+        return outcome
 
 
 
