@@ -46,10 +46,11 @@ class TestAnimals(unittest.TestCase):
                          60 + self.animal.GROWTH_RATE_WEIGHT)
 
     def test_is_alive(self):
-        self.animal.set_life_expectancy(5)
+        self.animal.set_life_expectancy(50)
         dead_or_alive = set()
         for i in range(100):
-            dead_or_alive.add(self.animal.is_alive())
+            status = self.animal.is_alive()
+            dead_or_alive.add(status)
         self.assertEqual(len(dead_or_alive), 2)
 
 if __name__ == '__main__':
