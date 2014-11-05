@@ -1,21 +1,21 @@
-[[
+{
     "tiger": {
         "life_expectancy": 20.0,
         "food_type": "meat",
-        "gestation_period": 6.0,    // female carries baby 6 months
-        "newborn_weight": 10.0,     // in kilos
-        "average_weight": 80.0,     // in kilos
-        "weight_age_ratio": 0.8,    // grows 0.8 kilos per month before reaching avg weight
-        "food_weight_ratio": 0.01   // eats 10 grams per kilo of weight
-    }
+        "gestation_period": 6.0,
+        "newborn_weight": 10.0,
+        "average_weight": 80.0,
+        "weight_age_ratio": 0.8,
+        "food_weight_ratio": 0.01
+    },
     
     "panda": {
         "life_expectancy": 15.0,
         "food_type": "grass",
-        "gestation_period": 9.0,    // female carries baby 9 months
-        "newborn_weight": 15.0,     // in kilos
-        "average_weight": 100.0,    // in kilos
-        "weight_age_ratio": 1.0,    // grows 1 kilo per month before reaching avg weight
-        "food_weight_ratio": 0.02   // eats 20 grams per kilo of weight
+        "gestation_period": 9.0,
+        "newborn_weight": 15.0,
+        "average_weight": 100.0,
+        "weight_age_ratio": 1.0,
+        "food_weight_ratio": 0.02
     }
-]]
+}

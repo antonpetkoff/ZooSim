@@ -4,8 +4,6 @@ import json
 
 class Animal:
     MONTHS_IN_YEAR = 12
-    GROWTH_RATE_AGE = 1.0      # grows with 1 month per grow() call
-    GROWTH_RATE_WEIGHT = 1.0    # grows with 1 kilo per grow() call
 
     def __init__(self, species, age, name, gender, weight):
         self.species = species
@@ -15,17 +13,34 @@ class Animal:
         self.weight = weight
 
         self.is_dead = False
-        self.newborn_weight = self.weight / 10
 
-        # call setters for the following variables
         self.life_expectancy = None
         self.food_type = None
+        self.gestation_period = None
+        self.newborn_weight = None
+        self.average_weight = None
+        self.weight_age_ratio = None
+        self.food_weight_ratio = None
 
-    def set_life_expectancy(self, life_expectancy):
-        self.life_expectancy = life_expectancy
+    def load_json(self, directory):
+        json_contents = {}
+        with open(directory) as jsonInput:
+            json_contents = json.load(jsonInput)
 
-    def set_food_type(self, food_type):
-        self.food_type = food_type
+        if self.species in json_contents.keys():
+            specifics = json_contents[self.species]
+            self.life_expectancy = specifics["life_expectancy"]
+            self.food_type = specifics["food_type"]
+            self.gestation_period = specifics["gestation_period"]
+            self.newborn_weight = specifics["newborn_weight"]
+            self.average_weight = specifics["average_weight"]
+            self.weight_age_ratio = specifics["weight_age_ratio"]
+            self.food_weight_ratio = specifics["food_weight_ratio"]
+        else:
+            raise ValueError("{} species not in JSON".format(self.species))
+
+    def __getitem__(self, attr):
+        return self.specifics[attr]
 
     def get_current_animal_year(self):
         return int(self.age / self.MONTHS_IN_YEAR) + 1
@@ -34,14 +49,14 @@ class Animal:
         if self.life_expectancy is not None:
             return self.get_current_animal_year() / self.life_expectancy
         else:
-            raise ValueError("life_expectancy not set!")
+            raise ValueError("No specifics loaded from JSON!")
 
     def grow(self):
-        self.age += self.GROWTH_RATE_AGE
-        self.weight += self.GROWTH_RATE_WEIGHT
+        self.age += self.weight_age_ratio
+        self.weight += self.weight * self.food_weight_ratio
 
     def eat(self):
-        self.weight += self.GROWTH_RATE_WEIGHT
+        self.weight += self.weight * self.food_weight_ratio
 
     def is_alive(self):
         if not self.is_dead:
