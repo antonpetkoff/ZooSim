@@ -6,73 +6,74 @@ from animal import Animal
 
 class TestZoo(unittest.TestCase):
 
+    def setUp(self):
+        self.zoo = Zoo(10, 100)
+
     def test_init(self):
-        zoo = Zoo(10, 100)
-        self.assertEqual(10, zoo.capacity)
-        self.assertEqual(100, zoo.budget)
+        self.assertEqual(10, self.zoo.capacity)
+        self.assertEqual(100, self.zoo.budget)
 
     def test_accommodate_animal(self):
-        zoo = Zoo(10, 100)
         the_tiger = Animal("Tiger", 15, "Dingo", "male", 90)
-        zoo.accommodate_animal(the_tiger)
-        self.assertIn(the_tiger, zoo.animals)
+        self.zoo.accommodate_animal(the_tiger)
+        self.assertIn(the_tiger, self.zoo.animals)
 
     def test_cant_accommodate_animal_with_duplicate_name(self):
-        zoo = Zoo(10, 100)
         the_tiger = Animal("Tiger", 15, "Dingo", "male", 90)
         the_copycat = Animal("Tiger", 15, "Dingo", "male", 90)
-        zoo.accommodate_animal(the_tiger)
+        self.zoo.accommodate_animal(the_tiger)
         with self.assertRaises(ValueError):
-            zoo.accommodate_animal(the_copycat)
+            self.zoo.accommodate_animal(the_copycat)
 
     def test_accomodate_same_names_diff_species(self):
-        zoo = Zoo(10, 100)
         the_tiger = Animal("Tiger", 15, "Dingo", "male", 90)
         the_cat = Animal("Cat", 15, "Dingo", "male", 90)
-        zoo.accommodate_animal(the_tiger)
-        zoo.accommodate_animal(the_cat)
-        self.assertIn(the_tiger, zoo.animals)
-        self.assertIn(the_cat, zoo.animals)
+        self.zoo.accommodate_animal(the_tiger)
+        self.zoo.accommodate_animal(the_cat)
+        self.assertIn(the_tiger, self.zoo.animals)
+        self.assertIn(the_cat, self.zoo.animals)
 
     def test_accommodate_to_full_zoo(self):
-        zoo = Zoo(1, 100)
+        zoo_1_animal = Zoo(1, 100)
         the_tiger = Animal("Tiger", 15, "Dingo", "male", 90)
         the_cat = Animal("Cat", 15, "Dingo", "male", 90)
-        zoo.accommodate_animal(the_tiger)
-        zoo.accommodate_animal(the_cat)
-        self.assertNotIn(the_cat, zoo.animals)
+        zoo_1_animal.accommodate_animal(the_tiger)
+        zoo_1_animal.accommodate_animal(the_cat)
+        self.assertNotIn(the_cat, zoo_1_animal.animals)
 
     def test_get_income(self):
-        zoo = Zoo(10, 100)
         the_tiger = Animal("Tiger", 15, "Dingo", "male", 90)
         the_cat = Animal("Cat", 15, "Dingo", "male", 90)
-        zoo.accommodate_animal(the_tiger)
-        zoo.accommodate_animal(the_cat)
-        self.assertEqual(2 * zoo.ANIMAL_INCOME, zoo.get_income())
+        self.zoo.accommodate_animal(the_tiger)
+        self.zoo.accommodate_animal(the_cat)
+        self.assertEqual(2 * self.zoo.ANIMAL_INCOME, self.zoo.get_income())
 
 ##### NO FOOD/WIGHT RATIO
     def test_get_outcome(self):
-        zoo = Zoo(10, 100)
         the_tiger = Animal("Tiger", 15, "Dingo", "male", 90)
         the_tiger.set_food_type("meat")
         the_cat = Animal("Cat", 15, "Dingo", "male", 90)
         the_cat.set_food_type("grass")
-        zoo.accommodate_animal(the_tiger)
-        zoo.accommodate_animal(the_cat)
-        self.assertEqual(zoo.MEAT_PRICE + zoo.GRASS_PRICE, zoo.get_outcome())
+        self.zoo.accommodate_animal(the_tiger)
+        self.zoo.accommodate_animal(the_cat)
+        self.assertEqual(self.zoo.MEAT_PRICE + self.zoo.GRASS_PRICE, self.zoo.get_outcome())
 
     def test_remove_dead_animal(self):
-        zoo = Zoo(10, 100)
         the_tiger = Animal("Tiger", 15, "Dingo", "male", 90)
         the_tiger.life_expectancy = 1000
         the_cat = Animal("Cat", 15, "Dingo", "male", 90)
         the_cat.life_expectancy = 0.0001
-        zoo.accommodate_animal(the_tiger)
-        zoo.accommodate_animal(the_cat)
-        zoo.remove_dead_animals()
-        print(the_cat.is_alive())
-        self.assertNotIn(the_cat, zoo.animals)
+        self.zoo.accommodate_animal(the_tiger)
+        self.zoo.accommodate_animal(the_cat)
+        self.zoo.remove_dead_animals()
+        self.assertNotIn(the_cat, self.zoo.animals)
 
+    def test_alive_animal_not_removed(self):
+        the_tiger = Animal("Tiger", 15, "Dingo", "male", 90)
+        the_tiger.life_expectancy = 1000000000
+        self.zoo.accommodate_animal(the_tiger)
+        self.zoo.remove_dead_animals()
+        self.assertIn(the_tiger, self.zoo.animals)
 
 
 #TODO Test adding animals

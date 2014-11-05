@@ -36,10 +36,13 @@ class Zoo:
     def calculate_budget(self):
         self.budget = self.budget + self.get_income() - self.get_outcome()
 
+    def remove_animal(self, animal):
+        self.animals.remove(animal)
+
     def remove_dead_animals(self):
         for animal in self.animals:
             if not animal.is_alive():
-                self.animals.remove(animal)
+                self.remove_animal(animal)
 
 
     # #####The zoo can accommodate an animal
