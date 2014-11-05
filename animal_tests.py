@@ -1,4 +1,5 @@
 from animal import Animal
+from uuid import uuid4
 import unittest
 
 
@@ -6,7 +7,6 @@ class TestAnimals(unittest.TestCase):
 
     def setUp(self):
         self.animal = Animal("tiger", 30, "Kumcho", "male", 60)
-        self.animal.load_json("database.json")
 
     def test_init(self):
         animal = Animal("Tiger", 20, "Dingo", "male", 90)
@@ -16,6 +16,20 @@ class TestAnimals(unittest.TestCase):
         self.assertEqual(animal.gender, "male")
         self.assertEqual(animal.weight, 90)
 
+    def test_load_json_invalid_file(self):
+        with self.assertRaises(FileNotFoundError):
+            self.animal.load_json(str(uuid4()))
+
+    def test_load_json_success(self):
+        self.animal.load_json("database.json")
+        self.assertEqual(self.animal.life_expectancy, 20.0)
+        self.assertEqual(self.animal.food_type, "meat")
+
+    def test_load_json_invalid_species(self):
+        test_animal = Animal(str(uuid4()), 10, "TEST", "male", 15)
+        with self.assertRaises(ValueError):
+            test_animal.load_json("database.json")
+
     def test_get_current_animal_year(self):
         self.assertEqual(self.animal.get_current_animal_year(), 3)
 
@@ -24,15 +38,18 @@ class TestAnimals(unittest.TestCase):
         self.assertEqual(self.animal.get_chance_of_dying(), 0.15)
 
     def test_grow(self):
+        self.animal.load_json("database.json")
         self.animal.grow()
-        self.assertEqual(self.animal.age, 30.8)
-        self.assertEqual(self.animal.weight, 60.6)
+        self.assertEqual(self.animal.age, 31)
+        self.assertEqual(self.animal.weight, 60.8)
 
     def test_eat(self):
+        self.animal.load_json("database.json")
         self.animal.eat()
         self.assertEqual(self.animal.weight, 60.6)
 
     def test_is_alive(self):
+        self.animal.load_json("database.json")
         dead_or_alive = set()
         for i in range(100):
             status = self.animal.is_alive()

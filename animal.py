@@ -4,6 +4,7 @@ import json
 
 class Animal:
     MONTHS_IN_YEAR = 12
+    ONE_MONTH = 1.0
 
     def __init__(self, species, age, name, gender, weight):
         self.species = species
@@ -24,8 +25,11 @@ class Animal:
 
     def load_json(self, directory):
         json_contents = {}
-        with open(directory) as jsonInput:
-            json_contents = json.load(jsonInput)
+        try:
+            with open(directory) as jsonInput:
+                json_contents = json.load(jsonInput)
+        except FileNotFoundError:
+            raise
 
         if self.species in json_contents.keys():
             specifics = json_contents[self.species]
@@ -39,9 +43,6 @@ class Animal:
         else:
             raise ValueError("{} species not in JSON".format(self.species))
 
-    def __getitem__(self, attr):
-        return self.specifics[attr]
-
     def get_current_animal_year(self):
         return int(self.age / self.MONTHS_IN_YEAR) + 1
 
@@ -52,8 +53,9 @@ class Animal:
             raise ValueError("No specifics loaded from JSON!")
 
     def grow(self):
-        self.age += self.weight_age_ratio
-        self.weight += self.weight * self.food_weight_ratio
+        self.age += self.ONE_MONTH
+        if self.weight < self.average_weight:
+            self.weight += self.weight_age_ratio
 
     def eat(self):
         self.weight += self.weight * self.food_weight_ratio
