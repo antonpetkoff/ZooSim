@@ -44,9 +44,5 @@ class Zoo:
             if not animal.is_alive():
                 self.remove_animal(animal)
 
-
-    # #####The zoo can accommodate an animal
-    # #####It has daily incomes depending on how much animals it has (the more animals it has, the more interesting it will be to go into that zoo, right?)
-    # It has daily outcomes depending on how much do the animals eat (every food has its price)
-    # #####Sadly, animals can die in the zoo :/
-    # The animals can reproduce again half an year (6 months) after their gestation period is over.
+    def can_afford_food(self):
+        return self.budget > 0
