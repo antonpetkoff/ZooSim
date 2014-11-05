@@ -1,6 +1,11 @@
 [
     "tiger": {
-        "life_expectancy": 10
+        "life_expectancy": 10,
+        "food_type": "meat",
+        "gestation_period": 6,      // female carries baby 6 months
+        "newborn_weight": 10,   // in kilos
+        "average_weight": 80,
+        "weight_age_ratio": "asdf"
     }
     //WORK IN PROGRESS
 ]
