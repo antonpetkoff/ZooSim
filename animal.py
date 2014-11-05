@@ -2,13 +2,13 @@ from random import random
 
 
 class Animal:
-    DAYS_IN_YEAR = 365
-    GROWTH_RATE_AGE = 30.0      # grows with 30 days per grow() call
+    MONTHS_IN_YEAR = 12
+    GROWTH_RATE_AGE = 1.0      # grows with 1 month per grow() call
     GROWTH_RATE_WEIGHT = 1.0    # grows with 1 kilo per grow() call
 
     def __init__(self, species, age, name, gender, weight):
         self.species = species
-        self.age = age                  # stores days
+        self.age = age                  # stores months
         self.name = name
         self.gender = gender
         self.weight = weight
@@ -27,7 +27,7 @@ class Animal:
         self.food_type = food_type
 
     def get_current_animal_year(self):
-        return int(self.age / self.DAYS_IN_YEAR) + 1
+        return int(self.age / self.MONTHS_IN_YEAR) + 1
 
     def get_chance_of_dying(self):
         if self.life_expectancy is not None:
@@ -47,8 +47,8 @@ class Animal:
             chance_of_dying = self.get_chance_of_dying()
             if random() < chance_of_dying:
                 self.is_dead = True
-                return True
-            else:
                 return False
+            else:
+                return True
         else:
             return False

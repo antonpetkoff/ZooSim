@@ -5,12 +5,12 @@ import unittest
 class TestAnimals(unittest.TestCase):
 
     def setUp(self):
-        self.animal = Animal("Wolf", 1000, "Kumcho", "male", 60)
+        self.animal = Animal("Wolf", 30, "Kumcho", "male", 60)
 
     def test_init(self):
-        animal = Animal("Tiger", 600, "Dingo", "male", 90)
+        animal = Animal("Tiger", 20, "Dingo", "male", 90)
         self.assertEqual(animal.species, "Tiger")
-        self.assertEqual(animal.age, 600)
+        self.assertEqual(animal.age, 20)
         self.assertEqual(animal.name, "Dingo")
         self.assertEqual(animal.gender, "male")
         self.assertEqual(animal.weight, 90)
@@ -36,7 +36,7 @@ class TestAnimals(unittest.TestCase):
 
     def test_grow(self):
         self.animal.grow()
-        self.assertEqual(self.animal.age, 1000 + self.animal.GROWTH_RATE_AGE)
+        self.assertEqual(self.animal.age, 30 + self.animal.GROWTH_RATE_AGE)
         self.assertEqual(self.animal.weight,
                          60 + self.animal.GROWTH_RATE_WEIGHT)
 
