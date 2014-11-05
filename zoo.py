@@ -16,11 +16,6 @@ class Zoo:
                     raise ValueError("Name already taken: {}".format(a.name))
             self.animals.append(animal)
 
-    def remove_animal(self, animal):
-        for a in self.animals:
-            if a is animal:
-                self.animals.remove(a)
-
     def is_empty(self):
         return len(self.animals) < self.capacity
 
@@ -28,7 +23,7 @@ class Zoo:
         income = len(self.animals) * self.ANIMAL_INCOME
         return income
 
-    #TO ADD
+    #TO ADD food/weigh ratio
     def get_outcome(self):
         outcome = 0
         for animal in self.animals:
@@ -38,7 +33,13 @@ class Zoo:
                 outcome += self.GRASS_PRICE
         return outcome
 
+    def calculate_budget(self):
+        self.budget = self.budget + self.get_income() - self.get_outcome()
 
+    def remove_dead_animals(self):
+        for animal in self.animals:
+            if not animal.is_alive():
+                self.animals.remove(animal)
 
 
     # #####The zoo can accommodate an animal

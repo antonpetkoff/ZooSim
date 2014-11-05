@@ -50,6 +50,7 @@ class TestZoo(unittest.TestCase):
         zoo.accommodate_animal(the_cat)
         self.assertEqual(2 * zoo.ANIMAL_INCOME, zoo.get_income())
 
+##### NO FOOD/WIGHT RATIO
     def test_get_outcome(self):
         zoo = Zoo(10, 100)
         the_tiger = Animal("Tiger", 15, "Dingo", "male", 90)
@@ -59,6 +60,18 @@ class TestZoo(unittest.TestCase):
         zoo.accommodate_animal(the_tiger)
         zoo.accommodate_animal(the_cat)
         self.assertEqual(zoo.MEAT_PRICE + zoo.GRASS_PRICE, zoo.get_outcome())
+
+    def test_remove_dead_animal(self):
+        zoo = Zoo(10, 100)
+        the_tiger = Animal("Tiger", 15, "Dingo", "male", 90)
+        the_tiger.life_expectancy = 1000
+        the_cat = Animal("Cat", 15, "Dingo", "male", 90)
+        the_cat.life_expectancy = 0.0001
+        zoo.accommodate_animal(the_tiger)
+        zoo.accommodate_animal(the_cat)
+        zoo.remove_dead_animals()
+        print(the_cat.is_alive())
+        self.assertNotIn(the_cat, zoo.animals)
 
 
 
